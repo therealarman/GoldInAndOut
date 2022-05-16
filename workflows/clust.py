@@ -75,6 +75,9 @@ def run_clust(pb: pyqtSignal, real_coords: List[Tuple[float, float]], rand_coord
                 clust_objs.append(clust_obj)
             new_df = pd.DataFrame(clust_objs, columns=["cluster_id", "cluster_size", "cluster_area"])
             new_df = new_df.reset_index(drop=True)
+            new_df['avg'] = new_df['cluster_size'].mean()
+            #Add column with no single clusters
+            new_df['no_singles'] = new_df['cluster_size'].where(new_df['cluster_size'] > 1).dropna()
             clust_details_dfs.append(new_df)
     else: 
         emp_df = pd.DataFrame()

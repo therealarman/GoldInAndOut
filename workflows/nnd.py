@@ -44,6 +44,8 @@ def run_nnd(real_coords: List[Tuple[float, float]], rand_coords: List[Tuple[floa
         clean_real_df = pd.DataFrame()
         clean_real_df[['og_coord', 'closest_coord', 'dist']] = pd.DataFrame(
             [x for x in real_df['Nearest Neighbor Distance'].tolist()])
+        # add average distance column to clean df
+        clean_real_df['avg_dist'] = clean_real_df['dist'].mean()
         # find random dist
         random_nnd_list = distance_to_closest_particle(random_coordinate_list)
         rand_df = pd.DataFrame(data={'Nearest Neighbor Distance': random_nnd_list})
@@ -51,6 +53,8 @@ def run_nnd(real_coords: List[Tuple[float, float]], rand_coords: List[Tuple[floa
         clean_rand_df = pd.DataFrame()
         clean_rand_df[['og_coord', 'closest_coord', 'dist']] = pd.DataFrame(
             [x for x in rand_df['Nearest Neighbor Distance'].tolist()])
+        # add average distance column to random df
+        clean_rand_df['avg_dist'] = clean_rand_df['dist'].mean()
         return clean_real_df, clean_rand_df
 
     return nnd(coordinate_list=real_coords, random_coordinate_list=rand_coords)

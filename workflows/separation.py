@@ -119,6 +119,9 @@ def run_separation(pb: pyqtSignal, real_coords: List[Tuple[float, float]], rand_
     # add back cluster ids to df
     real_df['cluster_id'] = real_clust_ids
     rand_df['cluster_id'] = rand_clust_ids
+    # add average column to dfs
+    real_df['avg'] = real_df['dist'].mean()
+    rand_df['avg'] = rand_df['dist'].mean()
     # return dataframes with all elements, dataframe with only centroids and nnd
     return full_real_df, full_rand_df, real_df, rand_df
 
